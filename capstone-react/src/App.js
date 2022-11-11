@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="catagories-container">
+      <div className="catagoriy-container">
+        {/* <img /> */}
+        <div className="categoty-body-container">
+          <h2>Hats</h2>
+          <p>Shop now</p>
+        </div>
+      </div>
+      <div className="catagoriy-container">
+        {/* <img /> */}
+        <div className="categoty-body-container">
+          <h2>Jackets</h2>
+          <p>Shop now</p>
+        </div>
+      </div>
+      <div className="catagoriy-container">
+        {/* <img /> */}
+        <div className="categoty-body-container">
+          <h2>Sneakers</h2>
+          <p>Shop now</p>
+        </div>
+      </div>
+      <div className="catagoriy-container">
+        {/* <img /> */}
+        <div className="categoty-body-container">
+          <h2>Womens</h2>
+          <p>Shop now</p>
+        </div>
+      </div>
+      <div className="catagoriy-container">
+        {/* <img /> */}
+        <div className="categoty-body-container">
+          <h2>Mens</h2>
+          <p>Shop now</p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
