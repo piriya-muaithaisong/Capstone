@@ -32,7 +32,7 @@ const App = () => {
       <div className="catagoriy-container">
         {/* <img /> */}
         <div className="categoty-body-container">
-          <h2>Mens</h2>
+          <h2>Mens   </h2>
           <p>Shop now</p>
         </div>
       </div>
