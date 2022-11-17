@@ -3,12 +3,13 @@
 
 import SignInFrom from "../../components/sing-in-from/sign-in-from.component";
 import SignUpFrom from "../../components/sing-up-from/sign-up-from.component";
-import {
-  auth,
-  signinWithGooglePopup,
-  createUserDocumetFromAuth,
-  //signInWithGoogleRedirect,
-} from "../../utils/firebase/firebase.utils";
+import './authentication.styles.scss'
+// import {
+//   auth,
+//   signinWithGooglePopup,
+//   createUserDocumetFromAuth,
+//   signInWithGoogleRedirect,
+// } from "../../utils/firebase/firebase.utils";
 
 // const getDataFromRedirected = async () => {
 //   const response = await getRedirectResult(auth);
@@ -24,8 +25,7 @@ const Authentication = () => {
 
 
   return (
-    <div>
-      <h1>Sign In page</h1>
+    <div className="authentication-container">
       {/* <button onClick={signInWithGoogleRedirect}>
         Sign in With Google Redirect
       </button> */}
