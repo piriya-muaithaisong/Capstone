@@ -3,6 +3,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumetFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import FromInput from "../form-input/form-input.componet";
 
 const defaultformField = {
   displayName: "",
@@ -23,12 +24,11 @@ const SignUpFrom = () => {
   };
 
   const resetFormFields = () => {
-    setFromFields(defaultformField)
-  }
+    setFromFields(defaultformField);
+  };
   const handleSubmit = async (event) => {
-    
-    event.preventDefault()
-    
+    event.preventDefault();
+
     if (password !== confirmPassword) {
       alert("password do not match");
       return;
@@ -39,11 +39,10 @@ const SignUpFrom = () => {
         email,
         password
       );
-      console.log(user)
+      console.log(user);
 
       await createUserDocumetFromAuth(user, { displayName });
-      resetFormFields()
-
+      resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("email-already-in-use");
@@ -56,32 +55,32 @@ const SignUpFrom = () => {
     <div>
       <h1>Sign up with your email and password</h1>
       <form method="POST" onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
+        <FromInput
+          label="Display Name"
           type="text"
           required
           onChange={handleChange}
           name="displayName"
           value={displayName}
         />
-        <label>Email</label>
-        <input
+        <FromInput 
+          label="Email"
           type="email"
           required
           onChange={handleChange}
           name="email"
           value={email}
         />
-        <label>Password</label>
-        <input
+        <FromInput 
+          label="Password"
           type="password"
           required
           onChange={handleChange}
           name="password"
           value={password}
         />
-        <label>Confirm Password</label>
-        <input
+        <FromInput 
+          label="Confirm Password"
           type="password"
           required
           onChange={handleChange}
