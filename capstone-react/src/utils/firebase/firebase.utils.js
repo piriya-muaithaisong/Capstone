@@ -7,7 +7,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -36,7 +37,10 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
-export const createUserDocumetFromAuth = async (userAuth, additionalInformation = {}) => {
+export const createUserDocumetFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
@@ -50,7 +54,7 @@ export const createUserDocumetFromAuth = async (userAuth, additionalInformation 
         displayName,
         email,
         createAt,
-        ...additionalInformation
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("error creating users");
@@ -76,3 +80,8 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) => {
+  if (!callback) return;
+  onAuthStateChanged(auth, callback);
+};
