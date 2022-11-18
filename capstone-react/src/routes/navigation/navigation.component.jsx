@@ -7,10 +7,9 @@ import "./navigation.styles.scss";
 // Link is  the a tag but better
 
 const Navigation = () => {
-  const { currentUser, setCurrentuser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   const signOutHandler = async () => {
     await signOutUser();
-    setCurrentuser(null);
   };
   //console.log(currentUser);
 
