@@ -19,7 +19,7 @@ const SignInFrom = () => {
   const { email, password } = fromFields;
   const { setCurrentuser } = useContext(UserContext);
 
-  console.log(fromFields);
+  //console.log(fromFields);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
