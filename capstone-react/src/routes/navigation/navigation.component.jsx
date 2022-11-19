@@ -6,10 +6,13 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import "./navigation.styles.scss";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/card-dropdown/card-dropdown.component";
+import { CartContext } from "../../context/cart.context";
 // Link is  the a tag but better
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
+
   const signOutHandler = async () => {
     await signOutUser();
   };
@@ -36,7 +39,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        <CartDropdown />
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </Fragment>
