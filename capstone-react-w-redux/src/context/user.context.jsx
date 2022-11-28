@@ -4,6 +4,7 @@ import {
   createUserDocumetFromAuth,
   signOutUser,
 } from "../utils/firebase/firebase.utils";
+import { createAction } from "../utils/reducer/reducer.utils";
 
 //as the actual value you want to acess
 export const UserContext = createContext({
@@ -37,11 +38,11 @@ const INITIAL_STATE = {
 export const UserProvider = ({ children }) => {
   //const [currentUser, setCurrentuser] = useState(null);
   const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
-  console.log(state)
+  console.log(state);
 
   const { currentUser } = state;
   const setCurrentuser = (user) => {
-    dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
   };
 
   const value = { currentUser, setCurrentuser };
@@ -61,5 +62,3 @@ export const UserProvider = ({ children }) => {
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
-
-
