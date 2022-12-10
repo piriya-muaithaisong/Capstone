@@ -19,7 +19,7 @@ withA(2,3) // 3+2-4 = 1
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
