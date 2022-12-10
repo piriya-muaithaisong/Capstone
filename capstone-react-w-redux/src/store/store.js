@@ -1,7 +1,8 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
-import storage  from "redux-persist/lib/storage";
-//import logger from "redux-logger";
+import storage from "redux-persist/lib/storage";
+//import { loggerMiddleware } from "./middleware/logger";
+import logger from "redux-logger";
 
 import { rootReducer } from "./root-reducer";
 
@@ -15,20 +16,6 @@ const withA = curryFuc(3);
 withA(2,3) // 3+2-4 = 1
 */
 
-const loggerMiddleware = (store) => (next) => (action) => {
-  if (!action.type) {
-    return next();
-  }
-
-  console.log("type: ", action.type);
-  console.log("payload: ", action.payload);
-  console.log("currentState: ", store.getState());
-
-  next(action);
-
-  console.log("NewState: ", store.getState());
-};
-
 const persistConfig = {
   key: "root",
   storage: storage,
@@ -38,8 +25,20 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // root-reducer
-const middleWares = [loggerMiddleware];
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
+  Boolean
+); // if it's was production logger should not log this
 
-export const store = createStore(persistedReducer, undefined, composedEnhancers);
+//make redux devtool on chrome work
+const composedEnhancer =
+  (process.env.NODE_ENV !== "production" &&
+  window &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares));
+
+export const store = createStore(
+  persistedReducer,
+  undefined,
+  composedEnhancers
+);
 export const persistor = persistStore(store);
