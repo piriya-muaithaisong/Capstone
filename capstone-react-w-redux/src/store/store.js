@@ -3,9 +3,11 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 //import { loggerMiddleware } from "./middleware/logger";
 import logger from "redux-logger";
-import thunk from "redux-thunk";
+//import thunk from "redux-thunk";
+import createSagaMiddleware from "@redux-saga/core";
 import { rootReducer } from "./root-reducer";
 
+import { rootSaga } from "./root-saga";
 /*
 const curryFuc = (a) => (b,c) => {
     a + b - c
@@ -22,12 +24,14 @@ const persistConfig = {
   whitelist: ["cart"],
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // root-reducer
 const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
-  thunk,
+  sagaMiddleware,
 ].filter(Boolean); // if it's was production logger should not log this
 
 //make redux devtool on chrome work
@@ -43,4 +47,7 @@ export const store = createStore(
   undefined,
   composedEnhancers
 );
+
+sagaMiddleware.run(rootSaga);
+
 export const persistor = persistStore(store);
