@@ -7,19 +7,14 @@ import CheckOut from "./routes/checkout/checkout.component";
 import { useDispatch } from "react-redux";
 
 import { useEffect } from "react";
-import {
-  onAuthStateChangedListener,
-  createUserDocumetFromAuth,
-  signOutUser,
-  getCurrentUser,
-} from "./utils/firebase/firebase.utils";
-import { setCurrentuser } from "./store/user/user.action";
+
+import { checkUserSession } from "./store/user/user.action";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getCurrentUser().then((user) => console.log(user));
+    dispatch(checkUserSession());
   }, []);
 
   return (

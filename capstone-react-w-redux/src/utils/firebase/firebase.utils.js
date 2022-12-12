@@ -97,7 +97,7 @@ export const createUserDocumetFromAuth = async (
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
   // check if user data exist
   // if user data not exist
   // create userDocref
