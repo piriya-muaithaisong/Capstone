@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { googleSignInStart } from "../../store/user/user.action";
 import {
-  signinWithGooglePopup,
-  createUserDocumetFromAuth,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+  emailSignInStart,
+  googleSignInStart,
+} from "../../store/user/user.action";
+
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import FromInput from "../form-input/form-input.componet";
 import "./sign-in-form.styles.scss";
@@ -34,10 +33,7 @@ const SignInFrom = () => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
       switch (error.code) {
