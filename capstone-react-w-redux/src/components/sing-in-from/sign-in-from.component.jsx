@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { googleSignInStart } from "../../store/user/user.action";
 import {
   signinWithGooglePopup,
   createUserDocumetFromAuth,
@@ -16,6 +18,7 @@ const defaultformField = {
 const SignInFrom = () => {
   const [fromFields, setFromFields] = useState(defaultformField);
   const { email, password } = fromFields;
+  const dispatch = useDispatch();
 
   //console.log(fromFields);
 
@@ -50,7 +53,7 @@ const SignInFrom = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signinWithGooglePopup();
+    dispatch(googleSignInStart());
   };
 
   return (
