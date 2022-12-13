@@ -43,3 +43,10 @@ export const signUpSuccess = (user, additionalDetail) =>
     user,
     additionalDetail,
   });
+
+export const signOutStart = () =>
+  createAction(USER_ACTION_TYPES.SIGN_OUT_START);
+export const signOutFailed = (error) =>
+  createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+export const signOutSuccess = () =>
+  createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
