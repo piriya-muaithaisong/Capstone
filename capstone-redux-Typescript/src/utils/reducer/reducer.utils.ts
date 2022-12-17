@@ -1,4 +1,3 @@
-import { type } from "os";
 import { AnyAction } from "redux";
 
 export type ActionWithPayload<T, P> = {
