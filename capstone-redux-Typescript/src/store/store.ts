@@ -1,5 +1,5 @@
-import { createStore, compose, applyMiddleware } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
+import { createStore, compose, applyMiddleware, Middleware } from "redux";
+import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 //import { loggerMiddleware } from "./middleware/logger";
 import logger from "redux-logger";
@@ -17,8 +17,18 @@ const withA = curryFuc(3);
 
 withA(2,3) // 3+2-4 = 1
 */
+export type RootState = ReturnType<typeof rootReducer>; //because rootReducer live in the world of JS not TS
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
-const persistConfig = {
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+  whitelist: (keyof RootState)[]
+}
+
+const persistConfig : ExtendedPersistConfig = {
   key: "root",
   storage: storage,
   whitelist: ["cart"],
@@ -32,7 +42,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
   sagaMiddleware,
-].filter(Boolean); // if it's was production logger should not log this
+].filter((middleware): middleware is Middleware => Boolean(middleWares)); // if it's was production logger should not log this
 
 //make redux devtool on chrome work
 const composedEnhancer =
