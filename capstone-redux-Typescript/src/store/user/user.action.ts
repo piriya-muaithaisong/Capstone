@@ -9,6 +9,7 @@ import {
   UserData,
   AdditionalInformation,
 } from "../../utils/firebase/firebase.utils";
+import { User } from "firebase/auth";
 
 // export const USER_ACTION_TYPES = {
 //   SET_CURRENT_USER: "user/SET_CURRENT_USER",
@@ -46,7 +47,7 @@ export type SignUpfailed = ActionWithPayload<
 >;
 export type SignUpSuccess = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_UP_SUCCESS,
-  { user: UserData; additionalDetail: AdditionalInformation }
+  { user: User; additionalDetail: AdditionalInformation }
 >;
 export type SignOutStart = Action<USER_ACTION_TYPES.SIGN_OUT_START>;
 export type SignOutfailed = ActionWithPayload<
@@ -98,7 +99,7 @@ export const signUpFailed = withMatcher(
 );
 
 export const signUpSuccess = withMatcher(
-  (user: UserData, additionalDetail: AdditionalInformation): SignUpSuccess =>
+  (user: User, additionalDetail: AdditionalInformation): SignUpSuccess =>
     createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, {
       user,
       additionalDetail,

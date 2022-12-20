@@ -42,7 +42,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
   sagaMiddleware,
-].filter((middleware): middleware is Middleware => Boolean(middleWares)); // if it's was production logger should not log this
+].filter((middleware): middleware is Middleware => Boolean(middleware)); // if it's was production logger should not log this
 
 //make redux devtool on chrome work
 const composedEnhancer =

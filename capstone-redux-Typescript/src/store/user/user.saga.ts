@@ -10,6 +10,8 @@ import {
   signOutSuccess,
   signOutFailed,
   EmailSignInStart,
+  SignUpStart,
+  SignUpSuccess,
 } from "./user.action";
 
 import {
@@ -82,20 +84,23 @@ export function* signInWithEmail(action: EmailSignInStart) {
   }
 }
 
-export function* signUp(action) {
+export function* signUp(action: SignUpStart) {
   const {
     payload: { email, password, displayName },
   } = action;
 
   try {
-    const { user } = yield* call(
+    const userCredential = yield* call(
       createAuthUserWithEmailAndPassword,
       email,
       password
     );
-    yield* put(signUpSuccess(user, { displayName }));
+    if (userCredential) {
+      const { user } = userCredential;
+      yield* put(signUpSuccess(user, { displayName }));
+    }
   } catch (error) {
-    yield* put(signUpFailed(error));
+    yield* put(signUpFailed(error as Error));
   }
 }
 
@@ -104,11 +109,13 @@ export function* signOut() {
     yield* call(signOutUser);
     yield* put(signOutSuccess());
   } catch (error) {
-    yield* put(signOutFailed(error));
+    yield* put(signOutFailed(error as Error));
   }
 }
 
-export function* signInAfterSignUp({ payload: { user, additionalDetail } }) {
+export function* signInAfterSignUp({
+  payload: { user, additionalDetail },
+}: SignUpSuccess) {
   yield* call(getSnapshotFromUserAuth, user, additionalDetail);
 }
 
