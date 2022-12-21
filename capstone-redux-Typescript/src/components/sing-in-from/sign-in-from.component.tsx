@@ -37,18 +37,20 @@ const SignInFrom = () => {
       dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
-      if (!(error instanceof FirebaseError)){return;}
-      switch (error.code) {
-        case "auth/wrong-password":
-          alert("password is incorrect");
-          break;
-        case "auth/user-not-found":
-          alert("user not found");
-          break;
-        default:
-          console.log(error);
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case "auth/wrong-password":
+            alert("password is incorrect");
+            break;
+          case "auth/user-not-found":
+            alert("user not found");
+            break;
+          default:
+            console.log(error);
+        }
       }
     }
+
   };
 
   const signInWithGoogle = async () => {
