@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { FirebaseError } from "firebase/app";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   emailSignInStart,
@@ -21,7 +22,7 @@ const SignInFrom = () => {
 
   //console.log(fromFields);
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFromFields({ ...fromFields, [name]: value });
   };
@@ -29,19 +30,21 @@ const SignInFrom = () => {
   const resetFormFields = () => {
     setFromFields(defaultformField);
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
+      if (!(error instanceof FirebaseError)){return;}
       switch (error.code) {
         case "auth/wrong-password":
           alert("password is incorrect");
           break;
         case "auth/user-not-found":
           alert("user not found");
+          break;
         default:
           console.log(error);
       }
