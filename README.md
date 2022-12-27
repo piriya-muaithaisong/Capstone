@@ -2,4 +2,4 @@
 
 # test
 
-Capstone is the Ecommerce app writing in ReactJS
+Capstone is the Ecommerce app writing in ReactJS + Redux + TypeSript
